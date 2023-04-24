@@ -5,14 +5,14 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
-import com.ltu.m7019e.v23.themoviedb.databinding.MovieListItemBinding
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModelFactory
@@ -25,20 +25,23 @@ class MovieListFragment : Fragment() {
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
 
-    private var _binding: FragmentMovieListBinding? = null;
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
+
+    private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
+        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
 
-        viewModelFactory = MovieListViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
+        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
         val movieListAdapter = MovieListAdapter(
             MovieListClickListener { movie ->
@@ -90,6 +93,7 @@ class MovieListFragment : Fragment() {
         // and an optional Lifecycle.State (here, RESUMED) to indicate when
         // the menu should be visible
         menuHost.addMenuProvider(object : MenuProvider {
+
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
                 menuInflater.inflate(R.menu.menu_main, menu)
@@ -105,7 +109,7 @@ class MovieListFragment : Fragment() {
                         viewModel.getTopRatedMovies()
                     }
                     R.id.action_load_saved_movies -> {
-                        //viewModel.getSavedMovies()
+                        viewModel.getSavedMovies()
                     }
                 }
                 return true

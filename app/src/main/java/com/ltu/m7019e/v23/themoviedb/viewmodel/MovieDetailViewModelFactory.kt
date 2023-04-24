@@ -7,11 +7,11 @@ import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
-class MovieListViewModelFactory(private val movieDatabaseDao: MovieDatabaseDao,
-                                private val application: Application): ViewModelProvider.Factory {
+class MovieDetailViewModelFactory(private val movieId: Long, private val application: Application):
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(MovieListViewModel::class.java)) {
-            return MovieListViewModel(movieDatabaseDao, application) as T
+        if(modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
+            return MovieDetailViewModel(movieId, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

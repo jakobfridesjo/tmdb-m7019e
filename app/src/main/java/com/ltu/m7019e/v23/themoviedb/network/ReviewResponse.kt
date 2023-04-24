@@ -1,21 +1,23 @@
 package com.ltu.m7019e.v23.themoviedb.network
 
-import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @JsonClass(generateAdapter = true)
-class MovieResponse {
+data class ReviewResponse(
+    @Json(name = "id")
+    val id: Long = 0L,
+
     @Json(name = "page")
-    var page: Int = 0;
+    val page: Int = 0,
 
     @Json(name = "results")
-    var results: List<Movie> = emptyList()
+    val results: List<Review> = emptyList(),
 
     @Json(name = "total_pages")
-    var total_pages: Int = 0
+    val totalPages: Int = 0,
 
     @Json(name = "total_results")
-    var total_results: Int = 0
-}
+    val totalResults: Int = 0
+)

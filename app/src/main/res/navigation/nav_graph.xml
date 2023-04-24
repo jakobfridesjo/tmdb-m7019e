@@ -15,6 +15,7 @@
             android:id="@+id/action_MovieListFragment_to_MovieDetailFragment"
             app:destination="@id/MovieDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/MovieDetailFragment"
         android:name="com.ltu.m7019e.v23.themoviedb.MovieDetailFragment"
@@ -24,8 +25,27 @@
         <action
             android:id="@+id/action_MovieDetailFragment_to_MovieListFragment"
             app:destination="@id/MovieListFragment" />
+        <action
+            android:id="@+id/action_MovieDetailFragment_to_ThirdFragment"
+            app:destination="@id/ReviewsFragment" />
         <argument
             android:name="movie"
             app:argType="com.ltu.m7019e.v23.themoviedb.model.Movie" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ReviewsFragment"
+        android:name="com.ltu.m7019e.v23.themoviedb.ReviewsFragment"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_reviews">
+
+        <argument
+            android:name="movie"
+            app:argType="com.ltu.m7019e.v23.themoviedb.model.Movie" />
+        <action
+            android:id="@+id/action_ReviewsFragment_to_MovieDetailFragment"
+            app:destination="@id/MovieDetailFragment" />
+
     </fragment>
 </navigation>

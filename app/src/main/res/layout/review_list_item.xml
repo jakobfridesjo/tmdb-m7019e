@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="review"
+            type="com.ltu.m7019e.v23.themoviedb.model.Review" />
+        <variable
+            name="clickListener"
+            type="com.ltu.m7019e.v23.themoviedb.adapter.ReviewListClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/review_list_item_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{ () -> clickListener.onClick(review)}">
+
+
+        <TextView
+            android:id="@+id/review_score"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text='@{review.authorDetails.rating != null ? String.valueOf(review.authorDetails.rating.intValue()) + "/10" : "N/A"}'
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="@+id/review_author_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/review_author_avatar" />
+
+        <ImageView
+            android:id="@+id/review_author_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/author_avatar"
+            app:avatarImageUrl="@{review.authorDetails.avatarPath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/review_author_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start|center_vertical"
+            android:text="@{review.author}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/date_view"
+            app:layout_constraintEnd_toStartOf="@+id/review_score"
+            app:layout_constraintStart_toEndOf="@+id/review_author_avatar"
+            app:layout_constraintTop_toTopOf="@+id/review_author_avatar" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:createdAtDate="@{review.createdAt}"
+            app:layout_constraintBottom_toBottomOf="@+id/review_author_avatar"
+            app:layout_constraintEnd_toStartOf="@+id/review_score"
+            app:layout_constraintStart_toEndOf="@+id/review_author_avatar" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/review_author_avatar" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/review_score"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/review_author_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/review_author_avatar">
+
+            <TextView
+                android:id="@+id/review_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{review.content}" />
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
