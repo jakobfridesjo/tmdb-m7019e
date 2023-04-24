@@ -3,8 +3,6 @@ package com.ltu.m7019e.v23.themoviedb.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
-import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class VideoListViewModelFactory(private val movieId: Long, private val application: Application): ViewModelProvider.Factory {

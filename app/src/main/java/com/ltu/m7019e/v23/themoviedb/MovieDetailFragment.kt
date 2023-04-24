@@ -45,6 +45,8 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             binding.movie = movie
+            this.movie.imdbId = movie.imdbId
+            this.movie.homepage = movie.homepage
         }
 
         viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->

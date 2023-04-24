@@ -1,6 +1,7 @@
 package com.ltu.m7019e.v23.themoviedb.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +11,7 @@ import com.ltu.m7019e.v23.themoviedb.R
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.YOUTUBE_BASE_URL
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 @BindingAdapter("posterImageUrl")
 fun bindPosterImage(imgView: ImageView, imgUrl:String?) {
@@ -51,7 +53,7 @@ fun bindCreatedAtDate(textView: TextView, createdAt: String?) {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = inputFormat.parse(createdAt)
-        val formattedDate = outputFormat.format(date)
+        val formattedDate = date?.let { outputFormat.format(it) }
         textView.text = formattedDate
     } else {
         textView.text = ""
@@ -62,11 +64,11 @@ fun bindCreatedAtDate(textView: TextView, createdAt: String?) {
 @BindingAdapter("videoUrl")
 fun bindVideoView(webView: WebView, key: String?) {
 
-    val videoUrl: String = "${YOUTUBE_BASE_URL}${key}"
+    val videoUrl = "${YOUTUBE_BASE_URL}${key}"
+    val html = "<iframe width=\"100%\" height=\"100%\" src=\"${videoUrl}\" frameBorder=\"0\" allowFullscreen></iframe>"
 
     webView.settings.javaScriptEnabled = true
-
-    val html = "<iframe width=\"100%\" height=\"100%\" src=\"${videoUrl}\" frameBorder=\"0\" allowFullscreen></iframe>"
+    webView.setBackgroundColor(Color.TRANSPARENT)
 
     webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
 }

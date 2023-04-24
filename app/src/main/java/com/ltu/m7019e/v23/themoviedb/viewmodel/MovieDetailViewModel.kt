@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
-import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
 
@@ -31,7 +30,7 @@ class MovieDetailViewModel(private val movieId: Long, application: Application) 
         _dataFetchStatus.value = DataFetchStatus.LOADING
     }
 
-    fun getMovieDetails() {
+    private fun getMovieDetails() {
         viewModelScope.launch {
             try {
                 val movieDetailsResponse: MovieDetailsResponse =

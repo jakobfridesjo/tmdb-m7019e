@@ -1,25 +1,24 @@
 package com.ltu.m7019e.v23.themoviedb
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.ltu.m7019e.v23.themoviedb.databinding.FragmentReviewsBinding
-import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.viewmodel.ReviewListViewModel
-import com.ltu.m7019e.v23.themoviedb.viewmodel.ReviewListViewModelFactory
-import com.ltu.m7019e.v23.themoviedb.viewmodel.VideoListViewModel
-import com.ltu.m7019e.v23.themoviedb.viewmodel.VideoListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.adapter.ReviewListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.ReviewListClickListener
 import com.ltu.m7019e.v23.themoviedb.adapter.VideoListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.VideoListClickListener
+import com.ltu.m7019e.v23.themoviedb.databinding.FragmentReviewsBinding
+import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.viewmodel.ReviewListViewModel
+import com.ltu.m7019e.v23.themoviedb.viewmodel.ReviewListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.viewmodel.VideoListViewModel
+import com.ltu.m7019e.v23.themoviedb.viewmodel.VideoListViewModelFactory
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.

@@ -46,5 +46,4 @@ class VideoListDiffCallback : DiffUtil.ItemCallback<Video>() {
 }
 
 class VideoListClickListener(val clickListener: (video: Video) -> Unit) {
-    fun onClick(video: Video) = clickListener(video)
 }

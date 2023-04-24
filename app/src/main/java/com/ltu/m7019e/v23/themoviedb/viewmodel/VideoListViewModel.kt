@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class VideoListViewModel(movieId: Long, application: Application) : AndroidViewModel(application) {
 
-    val movieId = movieId
+    private val movieId = movieId
 
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
@@ -36,7 +36,7 @@ class VideoListViewModel(movieId: Long, application: Application) : AndroidViewM
         //_navigateToMovieDetail.value = movie
     }
 
-    fun getMovieVideos() {
+    private fun getMovieVideos() {
         viewModelScope.launch {
             try {
                 val videoResponse: VideoResponse =

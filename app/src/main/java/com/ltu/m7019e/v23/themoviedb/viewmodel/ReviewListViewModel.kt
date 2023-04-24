@@ -36,7 +36,7 @@ class ReviewListViewModel(movieId: Long, application: Application) : AndroidView
         //_navigateToMovieDetail.value = movie
     }
 
-    fun getMovieReviews() {
+    private fun getMovieReviews() {
         viewModelScope.launch {
             try {
                 val reviewResponse: ReviewResponse =
