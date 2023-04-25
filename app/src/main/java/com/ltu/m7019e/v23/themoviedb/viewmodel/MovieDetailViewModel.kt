@@ -78,6 +78,7 @@ class MovieDetailViewModel(
     }
 
     fun onSaveMovieButtonClicked(movie: Movie) {
+        println("TESTING!")
         viewModelScope.launch {
             movieDatabaseDao.insert(movie)
             setIsFavorite(movie)

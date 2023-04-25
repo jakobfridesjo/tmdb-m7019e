@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">V23 Movie DB for M7019E</string>
+    <string name="app_name">TMDB M7019E</string>
     <string name="action_load_popular_movies">Popular Movies</string>
     <string name="action_load_top_rated_movies">Top Rated Movies</string>
     <string name="action_load_saved_movies">Saved Movies</string>

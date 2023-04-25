@@ -35,7 +35,7 @@ class MovieDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
 
@@ -43,7 +43,10 @@ class MovieDetailFragment : Fragment() {
         movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
 
         viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
+
+        // Give access to the view model
+        binding.viewModel = viewModel
 
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             binding.movie = movie
@@ -71,6 +74,12 @@ class MovieDetailFragment : Fragment() {
             }
         }
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.backToMovieList.setOnClickListener {
             findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToMovieListFragment())
         }
@@ -90,12 +99,5 @@ class MovieDetailFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context?.startActivity(intent)
         }
-
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
