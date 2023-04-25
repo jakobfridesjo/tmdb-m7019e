@@ -78,10 +78,4 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
             _movieList.value = movieDatabaseDao.getAllMovies()
         }
     }
-
-    fun addMovie() {
-        viewModelScope.launch {
-            _movieList.value?.let { movieDatabaseDao.insert(it[0]) }
-        }
-    }
 }

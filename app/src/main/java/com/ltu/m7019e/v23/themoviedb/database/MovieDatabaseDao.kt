@@ -18,6 +18,6 @@ interface MovieDatabaseDao {
     @Query("SELECT * FROM movies ORDER BY id ASC")
     suspend fun getAllMovies(): List<Movie>
 
-    @Query("SELECT EXISTS(SELECT * FROM movies WHERE id = :id)")
+    @Query("SELECT EXISTS(SELECT * from movies WHERE id = :id)")
     suspend fun isFavorite(id: Long): Boolean
 }

@@ -28,6 +28,7 @@ class MovieListFragment : Fragment() {
     private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     private var _binding: FragmentMovieListBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -39,7 +40,6 @@ class MovieListFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
-
         viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 

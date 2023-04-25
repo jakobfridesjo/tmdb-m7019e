@@ -8,13 +8,11 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="movies_are_being_loaded">Movies are being Loaded</string>
     <string name="reviews_are_being_loaded">Reviews are being Loaded</string>
     <string name="videos_are_being_loaded">Videos are being Loaded</string>
-
     <string name="movie_reviews">Reviews</string>
     <string name="movie_backdrop">Movie backdrop</string>
     <string name="reviews_fragment">Navigate to the reviews page</string>
@@ -24,5 +22,7 @@
     <string name="third_fragment_label">Reviews</string>
     <string name="author_avatar">Author avatar</string>
     <string name="poster_description">Movie poster</string>
+    <string name="save_locally">Save Locally</string>
+    <string name="remove_locally">Remove Locally</string>
 
 </resources>

@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -18,11 +21,12 @@ import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieDetailViewModelFactory
 
 class MovieDetailFragment : Fragment() {
 
-    private var _binding: FragmentMovieDetailBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var viewModelFactory: MovieDetailViewModelFactory
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
+
+    private var _binding: FragmentMovieDetailBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var movie: Movie
 
@@ -32,16 +36,14 @@ class MovieDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        binding.lifecycleOwner = this
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
 
-        viewModelFactory = MovieDetailViewModelFactory(movie.id, requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
+        val application = requireNotNull(this.activity).application
+        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
+
+        viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
 
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             binding.movie = movie
@@ -88,6 +90,8 @@ class MovieDetailFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context?.startActivity(intent)
         }
+
+        return binding.root
     }
 
     override fun onDestroyView() {

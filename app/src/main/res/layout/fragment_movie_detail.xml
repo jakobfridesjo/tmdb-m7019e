@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="movie"
             type="com.ltu.m7019e.v23.themoviedb.model.Movie" />
+
+        <variable
+            name="viewModel"
+            type="com.ltu.m7019e.v23.themoviedb.viewmodel.MovieDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,9 +45,9 @@
 
         <Button
             android:id="@+id/back_to_movie_list"
-            android:layout_width="120dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/previous"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,12 +55,12 @@
 
         <Button
             android:id="@+id/to_third_fragment"
-            android:layout_width="120dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/movie_reviews"
             android:contentDescription="@string/reviews_fragment"
+            android:text="@string/movie_reviews"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -73,44 +80,10 @@
             android:text="@{movie.genres}" />
 
         <TextView
-            android:id="@+id/movie_details_imdb"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@string/movie_imdb_title"
-            app:layout_constraintEnd_toEndOf="@+id/divider_movie_link_imdb_link"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link"
-            app:layout_constraintTop_toBottomOf="@+id/divider_movie_link_imdb_link"
-            android:text='@{"https://www.imdb.com/title/" + movie.imdbId}' />
-
-        <TextView
-            android:id="@+id/movie_details_page"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@string/movie_page_title"
-            app:layout_constraintEnd_toEndOf="@+id/divider_movie_link"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/divider_movie_link"
-            app:layout_constraintTop_toBottomOf="@+id/divider_movie_link"
-            android:text="@{movie.homepage}" />
-
-        <ImageView
-            android:id="@+id/status_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/movies_are_being_loaded"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
             android:id="@+id/movie_page_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="@string/movie_page_title"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/divider_movie_link"
@@ -119,22 +92,48 @@
             app:layout_constraintStart_toStartOf="@+id/divider_movie_link" />
 
         <TextView
-            android:id="@+id/movie_page_title2"
+            android:id="@+id/movie_details_imdb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/movie_imdb_title"
+            android:text='@{"https://www.imdb.com/title/" + movie.imdbId}'
+            app:layout_constraintEnd_toEndOf="@+id/divider_movie_link_imdb_link"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link"
+            app:layout_constraintTop_toBottomOf="@+id/divider_movie_link_imdb_link" />
+
+        <TextView
+            android:id="@+id/movie_details_page"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/movie_page_title"
+            android:text="@{movie.homepage}"
+            app:layout_constraintEnd_toEndOf="@+id/divider_movie_link"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/divider_movie_link"
+            app:layout_constraintTop_toBottomOf="@+id/divider_movie_link" />
+
+        <ImageView
+            android:id="@+id/status_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movie_imdb_title"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/divider_movie_link_imdb_link"
+            android:contentDescription="@string/movies_are_being_loaded"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link" />
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.485"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <View
             android:id="@+id/divider_movie_link"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="228dp"
+            android:layout_marginTop="220dp"
             android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
@@ -146,12 +145,24 @@
             android:id="@+id/divider_movie_link_imdb_link"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="96dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="@+id/divider_movie_link"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/divider_movie_link"
             app:layout_constraintTop_toBottomOf="@+id/divider_movie_link" />
+
+        <TextView
+            android:id="@+id/movie_page_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/movie_imdb_title"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/divider_movie_link_imdb_link"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link" />
 
         <TextView
             android:id="@+id/movie_details_description"
@@ -164,6 +175,30 @@
             app:layout_constraintEnd_toEndOf="@+id/movie_details_genre"
             app:layout_constraintStart_toStartOf="@+id/movie_details_genre"
             app:layout_constraintTop_toBottomOf="@+id/movie_details_genre" />
+
+        <Button
+            android:id="@+id/save_to_database"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{ () -> viewModel.onSaveMovieButtonClicked(movie)}"
+            android:text="@string/save_locally"
+            android:visibility="@{viewModel.isFavorite ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_movie_list"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/remove_from_database"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{ () -> viewModel.onRemoveMovieButtonClicked(movie)}"
+            android:text="@string/remove_locally"
+            android:visibility="@{viewModel.isFavorite ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/to_third_fragment"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
