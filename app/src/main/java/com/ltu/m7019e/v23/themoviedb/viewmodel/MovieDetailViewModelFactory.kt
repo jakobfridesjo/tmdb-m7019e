@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class MovieDetailViewModelFactory(

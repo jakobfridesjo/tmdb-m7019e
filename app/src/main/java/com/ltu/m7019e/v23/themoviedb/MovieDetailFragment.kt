@@ -1,3 +1,5 @@
+package com.ltu.m7019e.v23.themoviedb
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,10 +10,6 @@ import android.view.ViewGroup
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.ltu.m7019e.v23.themoviedb.MovieDetailFragmentArgs
-import com.ltu.m7019e.v23.themoviedb.MovieDetailFragmentDirections
-import com.ltu.m7019e.v23.themoviedb.R
-import com.ltu.m7019e.v23.themoviedb.TheMovieDataBase
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -35,7 +33,9 @@ class MovieDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentMovieDetailBinding.inflate(inflater)
+
         binding.lifecycleOwner = this
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
 

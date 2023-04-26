@@ -15,6 +15,8 @@ interface MovieRepository {
     suspend fun getSavedMovies(): List<Movie>
     suspend fun saveMovie(movie: Movie)
     suspend fun deleteMovie(movie: Movie)
+    suspend fun isFavorite(movie: Movie): Boolean
+
 }
 
 class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, private val movieApiService: TMDBApiService) : MovieRepository {
@@ -59,5 +61,9 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
 
     override suspend fun deleteMovie(movie: Movie) {
         movieDatabaseDao.delete(movie)
+    }
+
+    override suspend fun isFavorite(movie: Movie): Boolean {
+        return movieDatabaseDao.isFavorite(movie.id)
     }
 }

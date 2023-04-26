@@ -31,7 +31,7 @@ class MovieDetailViewModel(
     init {
         getMovieDetails()
         _dataFetchStatus.value = DataFetchStatus.LOADING
-        //TODO setIsFavorite(movieArg)
+        setIsFavorite(movieArg)
     }
 
     private fun getMovieDetails() {
@@ -48,7 +48,7 @@ class MovieDetailViewModel(
 
     private fun setIsFavorite(movie: Movie) {
         viewModelScope.launch {
-            //TODO _isFavorite.value = movieDatabaseDao.isFavorite(movie.id)
+            _isFavorite.value = movieRepository.isFavorite(movie)
         }
     }
 
