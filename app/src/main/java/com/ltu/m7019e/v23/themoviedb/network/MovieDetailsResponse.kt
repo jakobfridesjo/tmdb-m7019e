@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 class MovieDetailsResponse {
     @Json(name = "id")
-    var id: Int = 0
+    var id: Long = 0L
 
     @Json(name = "title")
     var title: String = ""
@@ -39,7 +39,7 @@ class MovieDetailsResponse {
 @JsonClass(generateAdapter = true)
 class Genre {
     @Json(name = "id")
-    var id: Int = 0
+    var id: Long = 0L
 
     @Json(name = "name")
     var name: String = ""

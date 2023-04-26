@@ -41,14 +41,17 @@ class ReviewsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentReviewsBinding.inflate(inflater)
-        val application = requireNotNull(this.activity).application
 
         movie = ReviewsFragmentArgs.fromBundle(requireArguments()).movie
 
-        reviewListViewModelFactory = ReviewListViewModelFactory(movie.id, application)
+        val appContainer = TheMovieDataBase.getAppContainer(requireContext())
+        val movieRepository = appContainer.movieRepository
+        val application = requireNotNull(this.activity).application
+
+        reviewListViewModelFactory = ReviewListViewModelFactory(movieRepository, movie.id, application)
         reviewListViewModel = ViewModelProvider(this, reviewListViewModelFactory)[ReviewListViewModel::class.java]
 
-        videoListViewModelFactory = VideoListViewModelFactory(movie.id, application)
+        videoListViewModelFactory = VideoListViewModelFactory(movieRepository, movie.id, application)
         videoListViewModel = ViewModelProvider(this, videoListViewModelFactory)[VideoListViewModel::class.java]
 
         val reviewListAdapter = ReviewListAdapter(

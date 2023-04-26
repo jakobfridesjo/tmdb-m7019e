@@ -10,10 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
+import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
+import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModelFactory
 
@@ -38,9 +41,12 @@ class MovieListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater)
 
+        val appContainer = TheMovieDataBase.getAppContainer(requireContext())
+        val movieRepository = appContainer.movieRepository
         val application = requireNotNull(this.activity).application
-        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
-        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
+
+        viewModelFactory = MovieListViewModelFactory(movieRepository, application)
+
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
         val movieListAdapter = MovieListAdapter(

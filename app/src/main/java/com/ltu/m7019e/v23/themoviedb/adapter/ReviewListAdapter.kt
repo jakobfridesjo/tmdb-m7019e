@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.model.Review
-import com.ltu.m7019e.v23.themoviedb.databinding.ReviewListItemBinding
+import com.ltu.m7019e.v23.themoviedb.databinding.ReviewListItemGridBinding
 
 class ReviewListAdapter(private val reviewClickListener: ReviewListClickListener) :  ListAdapter<Review, ReviewListAdapter.ViewHolder>(ReviewListDiffCallback()){
-    class ViewHolder(private var binding: ReviewListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private var binding: ReviewListItemGridBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(review: Review, reviewClickListener: ReviewListClickListener) {
             binding.review = review
@@ -20,7 +20,7 @@ class ReviewListAdapter(private val reviewClickListener: ReviewListClickListener
         companion object {
             fun from(parent: ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ReviewListItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ReviewListItemGridBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
