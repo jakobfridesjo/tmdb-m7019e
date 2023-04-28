@@ -21,16 +21,32 @@ interface MovieRepository {
 
 class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, private val movieApiService: TMDBApiService) : MovieRepository {
     override suspend fun getTopRatedMovies(): List<Movie> {
-        return movieApiService.getTopRatedMovies().results
+        val movies = movieApiService.getTopRatedMovies().results
+        if (movies.isNotEmpty()) {
+            movies.forEach { movie ->
+                movie.topRated = true
+                //movieDatabaseDao.update(movie)
+            }
+            return movies
+        }
+        return movieDatabaseDao.getTopRatedMovies()
     }
 
     override suspend fun getPopularMovies(): List<Movie> {
-        return movieApiService.getPopularMovies().results
+        val movies = movieApiService.getPopularMovies().results
+        if (movies.isNotEmpty()) {
+            movies.forEach { movie ->
+                movie.mostPopular = true
+                //movieDatabaseDao.update(movie)
+            }
+            return movies
+        }
+        return movieDatabaseDao.getPopularMovies()
     }
 
     override suspend fun getMovieDetails(movieId: Long): Movie {
         val movieResponse = movieApiService.getMovieDetails(movieId)
-        return Movie(
+        val movie = Movie(
             movieResponse.id,
             movieResponse.title,
             movieResponse.posterPath,
@@ -39,8 +55,13 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             movieResponse.overview,
             movieResponse.genres.joinToString(", ") { it.name },
             movieResponse.imdbId,
-            movieResponse.homepage
+            movieResponse.homepage,
+            favorite = false,
+            mostPopular = false,
+            topRated = false,
         )
+        movieDatabaseDao.update(movie)
+        return movie
     }
 
     override suspend fun getMovieReviews(movieId: Long): List<Review> {
@@ -51,16 +72,18 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
         return movieApiService.getMovieVideos(movieId).results
     }
 
-    override suspend fun getSavedMovies(): List<Movie> {
-        return movieDatabaseDao.getAllMovies()
-    }
-
     override suspend fun saveMovie(movie: Movie) {
-        movieDatabaseDao.insert(movie)
+        movie.favorite = true
+        movieDatabaseDao.update(movie)
     }
 
     override suspend fun deleteMovie(movie: Movie) {
-        movieDatabaseDao.delete(movie)
+        movie.favorite = false
+        movieDatabaseDao.update(movie)
+    }
+
+    override suspend fun getSavedMovies(): List<Movie> {
+        return movieDatabaseDao.getSavedMovies()
     }
 
     override suspend fun isFavorite(movie: Movie): Boolean {

@@ -12,40 +12,49 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "movies")
 data class Movie(
     @PrimaryKey
-        @Json(name = "id")
+    @Json(name = "id")
     var id: Long = 0L,
 
     @ColumnInfo
-        @Json(name = "title")
+    @Json(name = "title")
     var title: String,
 
     @ColumnInfo
-        @Json(name = "poster_path")
+    @Json(name = "poster_path")
     var posterPath: String,
 
     @ColumnInfo
-        @Json(name = "backdrop_path")
+    @Json(name = "backdrop_path")
     var backdropPath: String,
 
     @ColumnInfo
-        @Json(name = "release_date")
+    @Json(name = "release_date")
     var releaseDate: String,
 
     @ColumnInfo
-        @Json(name = "overview")
+    @Json(name = "overview")
     var overview: String,
 
     @ColumnInfo
-        @Json(name = "genres")
+    @Json(name = "genres")
     var genres: String? = null,
 
     @ColumnInfo
-        @Json(name = "imdb_id")
+    @Json(name = "imdb_id")
     var imdbId: String? = null,
 
     @ColumnInfo
-        @Json(name = "homepage")
-    var homepage: String? = null
+    @Json(name = "homepage")
+    var homepage: String? = null,
+
+    @ColumnInfo(name = "favorite")
+    var favorite: Boolean = false,
+
+    @ColumnInfo(name = "most_popular")
+    var mostPopular: Boolean = false,
+
+    @ColumnInfo(name = "top_rated")
+    var topRated: Boolean = false
 ) : Parcelable
 
 @Parcelize

@@ -24,5 +24,6 @@
     <string name="poster_description">Movie poster</string>
     <string name="save_locally">Save Locally</string>
     <string name="remove_locally">Remove Locally</string>
+    <string name="imdb_base_url">https://www.imdb.com/title/</string>
 
 </resources>
