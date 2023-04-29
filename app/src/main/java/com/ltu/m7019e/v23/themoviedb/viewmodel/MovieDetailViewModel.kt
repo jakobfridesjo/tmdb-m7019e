@@ -37,7 +37,7 @@ class MovieDetailViewModel(
     private fun getMovieDetails() {
         viewModelScope.launch {
             try {
-                _movie.value = movieRepository.getMovieDetails(movieArg.id)
+                _movie.value = movieRepository.getMovieDetails(movieArg)
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e: Exception) {
                 println(e.message)
@@ -48,7 +48,7 @@ class MovieDetailViewModel(
 
     private fun setIsFavorite(movie: Movie) {
         viewModelScope.launch {
-            _isFavorite.value = movieRepository.isFavorite(movie)
+            _isFavorite.value = movieRepository.isFavoriteMovie(movie)
         }
     }
 

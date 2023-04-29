@@ -48,10 +48,10 @@ class ReviewsFragment : Fragment() {
         val movieRepository = appContainer.movieRepository
         val application = requireNotNull(this.activity).application
 
-        reviewListViewModelFactory = ReviewListViewModelFactory(movieRepository, movie.id, application)
+        reviewListViewModelFactory = ReviewListViewModelFactory(movieRepository, movie, application)
         reviewListViewModel = ViewModelProvider(this, reviewListViewModelFactory)[ReviewListViewModel::class.java]
 
-        videoListViewModelFactory = VideoListViewModelFactory(movieRepository, movie.id, application)
+        videoListViewModelFactory = VideoListViewModelFactory(movieRepository, movie, application)
         videoListViewModel = ViewModelProvider(this, videoListViewModelFactory)[VideoListViewModel::class.java]
 
         val reviewListAdapter = ReviewListAdapter(

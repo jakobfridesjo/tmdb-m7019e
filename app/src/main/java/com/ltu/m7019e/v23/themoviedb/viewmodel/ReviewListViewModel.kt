@@ -6,13 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
+import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import kotlinx.coroutines.launch
 
 class ReviewListViewModel(
     private val movieRepository: MovieRepository,
-    private val movieId: Long,
+    private val movie: Movie,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -41,7 +42,7 @@ class ReviewListViewModel(
     private fun getMovieReviews() {
         viewModelScope.launch {
             try {
-                _reviewList.value = movieRepository.getMovieReviews(movieId)
+                _reviewList.value = movieRepository.getMovieReviews(movie)
                 println("TESTING HERE")
                 println(_reviewList.value)
                 println("DONE TESTING")

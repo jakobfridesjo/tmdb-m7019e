@@ -45,16 +45,7 @@ data class Movie(
 
     @ColumnInfo
     @Json(name = "homepage")
-    var homepage: String? = null,
-
-    @ColumnInfo(name = "favorite")
-    var favorite: Boolean = false,
-
-    @ColumnInfo(name = "most_popular")
-    var mostPopular: Boolean = false,
-
-    @ColumnInfo(name = "top_rated")
-    var topRated: Boolean = false
+    var homepage: String? = null
 ) : Parcelable
 
 @Parcelize
