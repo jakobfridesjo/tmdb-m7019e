@@ -11,47 +11,47 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "movies")
 data class Movie(
-        @PrimaryKey
-        @Json(name = "id")
-        var id: Long = 0L,
+    @PrimaryKey
+    @Json(name = "id")
+    var id: Long = 0L,
 
-        @ColumnInfo
-        @Json(name = "title")
-        var title: String,
+    @ColumnInfo
+    @Json(name = "title")
+    var title: String,
 
-        @ColumnInfo
-        @Json(name = "poster_path")
-        var posterPath: String,
+    @ColumnInfo
+    @Json(name = "poster_path")
+    var posterPath: String,
 
-        @ColumnInfo
-        @Json(name = "backdrop_path")
-        var backdropPath: String,
+    @ColumnInfo
+    @Json(name = "backdrop_path")
+    var backdropPath: String,
 
-        @ColumnInfo
-        @Json(name = "release_date")
-        var releaseDate: String,
+    @ColumnInfo
+    @Json(name = "release_date")
+    var releaseDate: String,
 
-        @ColumnInfo
-        @Json(name = "overview")
-        var overview: String,
+    @ColumnInfo
+    @Json(name = "overview")
+    var overview: String,
 
-        @ColumnInfo
-        @Json(name = "genres")
-        var genres: String? = null,
+    @ColumnInfo
+    @Json(name = "genres")
+    var genres: String? = null,
 
-        @ColumnInfo
-        @Json(name = "imdb_id")
-        var imdbId: String? = null,
+    @ColumnInfo
+    @Json(name = "imdb_id")
+    var imdbId: String? = null,
 
-        @ColumnInfo
-        @Json(name = "homepage")
-        var homepage: String? = null
+    @ColumnInfo
+    @Json(name = "homepage")
+    var homepage: String? = null
 ) : Parcelable
 
 @Parcelize
 data class Genre(
         @Json(name = "id")
-        val id: Int,
+        val id: Long = 0L,
         @Json(name = "name")
         val name: String
 ) : Parcelable

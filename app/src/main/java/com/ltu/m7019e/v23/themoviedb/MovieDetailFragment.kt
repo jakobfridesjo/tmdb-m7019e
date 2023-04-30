@@ -10,8 +10,6 @@ import android.view.ViewGroup
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
-import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -23,7 +21,7 @@ class MovieDetailFragment : Fragment() {
 
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var viewModelFactory: MovieDetailViewModelFactory
-    private lateinit var movieDatabaseDao: MovieDatabaseDao
+
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
@@ -35,15 +33,19 @@ class MovieDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentMovieDetailBinding.inflate(inflater)
+
         binding.lifecycleOwner = this
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
 
+        val appContainer = TheMovieDataBase.getAppContainer(requireContext())
+        val movieRepository = appContainer.movieRepository
         val application = requireNotNull(this.activity).application
-        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
 
-        viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
+        viewModelFactory = MovieDetailViewModelFactory(movieRepository, application, movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
+
 
         // Give access to the view model
         binding.viewModel = viewModel
@@ -97,6 +99,8 @@ class MovieDetailFragment : Fragment() {
         binding.movieDetailsPage.setOnClickListener {
             val uri = Uri.parse(movie.homepage)
             val intent = Intent(Intent.ACTION_VIEW, uri)
+
+
             context?.startActivity(intent)
         }
     }

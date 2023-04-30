@@ -5,15 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
+import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
-import com.ltu.m7019e.v23.themoviedb.network.ReviewResponse
-import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
 
-class ReviewListViewModel(movieId: Long, application: Application) : AndroidViewModel(application) {
+class ReviewListViewModel(
+    private val movieRepository: MovieRepository,
+    private val movie: Movie,
+    application: Application
+) : AndroidViewModel(application) {
 
-    private val movieId = movieId
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
         get() {
@@ -39,10 +42,7 @@ class ReviewListViewModel(movieId: Long, application: Application) : AndroidView
     private fun getMovieReviews() {
         viewModelScope.launch {
             try {
-                val reviewResponse: ReviewResponse =
-                    TMDBApi.reviewListRetrofitService.getMovieReviews(movieId)
-
-                _reviewList.value = reviewResponse.results
+                _reviewList.value = movieRepository.getMovieReviews(movie)
                 println("TESTING HERE")
                 println(_reviewList.value)
                 println("DONE TESTING")

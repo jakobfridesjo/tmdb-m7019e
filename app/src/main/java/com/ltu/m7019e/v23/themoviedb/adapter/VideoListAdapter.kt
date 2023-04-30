@@ -11,7 +11,7 @@ import com.ltu.m7019e.v23.themoviedb.databinding.VideoListItemBinding
 class VideoListAdapter(private val videoClickListener: VideoListClickListener) :  ListAdapter<Video, VideoListAdapter.ViewHolder>(VideoListDiffCallback()){
     class ViewHolder(private var binding: VideoListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(video: Video, videoClickListener: VideoListClickListener) {
+        fun bind(video: Video) {
             binding.video = video
             binding.executePendingBindings()
         }
@@ -30,7 +30,7 @@ class VideoListAdapter(private val videoClickListener: VideoListClickListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), videoClickListener)
+        holder.bind(getItem(position))
     }
 }
 

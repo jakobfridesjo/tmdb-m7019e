@@ -51,7 +51,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/previous"
+            android:text="@string/back_to_movie_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -99,6 +99,7 @@
             android:layout_marginTop="4dp"
             android:contentDescription="@string/movie_imdb_title"
             android:text='@{"https://www.imdb.com/title/" + movie.imdbId}'
+            android:visibility="@{movie.imdbId.length() > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/divider_movie_link_imdb_link"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link"
@@ -111,6 +112,7 @@
             android:layout_marginTop="8dp"
             android:contentDescription="@string/movie_page_title"
             android:text="@{movie.homepage}"
+            android:visibility="@{movie.homepage.length() > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/divider_movie_link"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/divider_movie_link"
