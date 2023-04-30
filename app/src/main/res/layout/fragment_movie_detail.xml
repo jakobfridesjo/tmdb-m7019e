@@ -51,7 +51,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/previous"
+            android:text="@string/back_to_movie_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

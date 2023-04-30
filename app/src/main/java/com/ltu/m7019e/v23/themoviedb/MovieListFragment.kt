@@ -1,5 +1,8 @@
 package com.ltu.m7019e.v23.themoviedb
 
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -12,6 +15,7 @@ import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.network.NetworkCallbackImpl
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModelFactory
 
@@ -114,5 +118,10 @@ class MovieListFragment : Fragment() {
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    override fun onDestroy() {
+        viewModel.unregisterNetworkCallback()
+        super.onDestroy()
     }
 }

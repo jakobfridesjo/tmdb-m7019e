@@ -11,10 +11,10 @@
 
         <Button
             android:id="@+id/back_to_movie_details"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/previous"
+            android:text="@string/back_to_movie_details"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

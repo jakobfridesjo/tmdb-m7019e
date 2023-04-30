@@ -33,9 +33,8 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             }
             return movies
         } catch (exception: Exception) {
-            Timber.tag("MOVIEREPOSITORY_TOP").d("NETWORK UNREACHABLE, USING LOCAL DATA")
+            Timber.tag("MOVIE_REPOSITORY_TOP_RATED").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
-        println("LOADING LOCAL TOP RATED MOVIES")
         return movieDatabaseDao.getTopRatedMovies()
     }
 
@@ -49,27 +48,32 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             }
             return movies
         } catch (exception: Exception) {
-            Timber.tag("MOVIEREPOSITORY_POPULAR").d("NETWORK UNREACHABLE, USING LOCAL DATA")
+            Timber.tag("MOVIE_REPOSITORY_POPULAR").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
         println("LOADING LOCAL POPULAR MOVIES")
         return movieDatabaseDao.getPopularMovies()
     }
 
     override suspend fun getMovieDetails(movie: Movie): Movie {
-        val movieResponse = movieApiService.getMovieDetails(movie.id)
-        val _movie = Movie(
-            movie.id,
-            movie.title,
-            movie.posterPath,
-            movie.backdropPath,
-            movieResponse.releaseDate,
-            movie.overview,
-            movieResponse.genres.joinToString(", ") { it.name },
-            movieResponse.imdbId,
-            movieResponse.homepage
-        )
-        movieDatabaseDao.insertMovie(_movie)
-        return _movie
+        try {
+            val movieResponse = movieApiService.getMovieDetails(movie.id)
+            val _movie = Movie(
+                movieResponse.id,
+                movieResponse.title,
+                movieResponse.posterPath,
+                movieResponse.backdropPath,
+                movieResponse.releaseDate,
+                movieResponse.overview,
+                movieResponse.genres.joinToString(", ") { it.name },
+                movieResponse.imdbId,
+                movieResponse.homepage
+            )
+            movieDatabaseDao.insertMovie(_movie)
+            return _movie
+        } catch (exception: Exception) {
+            Timber.tag("MOVIE_REPOSITORY_MOVIE_DETAILS").d("NETWORK UNREACHABLE, USING LOCAL DATA")
+        }
+        return movieDatabaseDao.getMovie(movie.id)
     }
 
     override suspend fun getMovieReviews(movie: Movie): List<Review> {

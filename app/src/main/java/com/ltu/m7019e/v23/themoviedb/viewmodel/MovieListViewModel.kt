@@ -8,12 +8,19 @@ import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.network.NetworkCallbackImpl
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
     private val movieRepository: MovieRepository,
     application: Application
 ) : AndroidViewModel(application) {
+
+    private val networkCallback = NetworkCallbackImpl(movieRepository, application)
+
+    fun unregisterNetworkCallback() {
+        networkCallback.unregister()
+    }
 
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
