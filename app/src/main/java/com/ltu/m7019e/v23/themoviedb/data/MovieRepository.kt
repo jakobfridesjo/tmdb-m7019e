@@ -34,7 +34,6 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             }
             return movies
         } catch (exception: Exception) {
-            println(exception.message)
             Timber.tag("MOVIE_REPOSITORY_TOP_RATED").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
         return movieDatabaseDao.getTopRatedMovies()

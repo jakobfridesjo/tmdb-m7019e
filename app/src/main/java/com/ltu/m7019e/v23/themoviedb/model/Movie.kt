@@ -37,15 +37,15 @@ data class Movie(
 
     @ColumnInfo
     @Json(name = "genres")
-    var genres: String? = null,
+    var genres: String? = "",
 
     @ColumnInfo
     @Json(name = "imdb_id")
-    var imdbId: String? = null,
+    var imdbId: String = "",
 
     @ColumnInfo
     @Json(name = "homepage")
-    var homepage: String? = null
+    var homepage: String = ""
 ) : Parcelable
 
 @Parcelize
@@ -55,16 +55,3 @@ data class Genre(
         @Json(name = "name")
         val name: String
 ) : Parcelable
-
-class Converters {
-
-        @TypeConverter
-        fun fromGenresList(genres: List<Genre>?): String? {
-                return genres?.joinToString(separator = ",") { it.name }
-        }
-
-        @TypeConverter
-        fun toGenresList(genresString: String?): List<Genre>? {
-                return genresString?.split(",")?.map { Genre(0, it) }
-        }
-}

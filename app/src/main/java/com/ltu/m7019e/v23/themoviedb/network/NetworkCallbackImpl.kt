@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class NetworkCallbackImpl(val movieRepository: MovieRepository, private val context: Context) : ConnectivityManager.NetworkCallback() {
 
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     init {
         val networkRequest = NetworkRequest.Builder()

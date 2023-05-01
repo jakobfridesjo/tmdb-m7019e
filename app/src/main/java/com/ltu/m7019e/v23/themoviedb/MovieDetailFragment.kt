@@ -50,10 +50,14 @@ class MovieDetailFragment : Fragment() {
         // Give access to the view model
         binding.viewModel = viewModel
 
-        viewModel.movie.observe(viewLifecycleOwner) { movie ->
-            binding.movie = movie
-            this.movie.imdbId = movie.imdbId
-            this.movie.homepage = movie.homepage
+        viewModel.movie.observe(viewLifecycleOwner) { _movie ->
+            println("TEST")
+            println(_movie.imdbId)
+            println(_movie.homepage)
+            println("TEST")
+            binding.movie = _movie
+            movie.imdbId = _movie.imdbId
+            movie.homepage = _movie.homepage
         }
 
         viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->
@@ -99,8 +103,6 @@ class MovieDetailFragment : Fragment() {
         binding.movieDetailsPage.setOnClickListener {
             val uri = Uri.parse(movie.homepage)
             val intent = Intent(Intent.ACTION_VIEW, uri)
-
-
             context?.startActivity(intent)
         }
     }
