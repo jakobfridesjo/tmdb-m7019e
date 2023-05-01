@@ -15,8 +15,17 @@ interface MovieDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: Movie)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovieAttribute(movieAttributes: MovieAttributes)
+
+    @Query("UPDATE movie_attributes SET top_rated = :value WHERE id = :id")
+    suspend fun setTopRated(id: Long, value: String)
+
+    @Query("UPDATE movie_attributes SET popular = :value WHERE id = :id")
+    suspend fun setPopular(id: Long, value: String)
+
+    @Query("UPDATE movie_attributes SET favorite = :value WHERE id = :id")
+    suspend fun setFavorite(id: Long, value: String)
 
     @Query("UPDATE movie_attributes SET top_rated = 0")
     suspend fun resetTopRatedAttribute()

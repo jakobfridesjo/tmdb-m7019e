@@ -28,11 +28,13 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             val movies = movieApiService.getTopRatedMovies().results
             movieDatabaseDao.resetTopRatedAttribute()
             movies.forEach { movie ->
-                movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id,null,null,"1"))
+                movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id,null,null,null))
+                movieDatabaseDao.setTopRated(movie.id, "1")
                 movieDatabaseDao.insertMovie(movie)
             }
             return movies
         } catch (exception: Exception) {
+            println(exception.message)
             Timber.tag("MOVIE_REPOSITORY_TOP_RATED").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
         return movieDatabaseDao.getTopRatedMovies()
@@ -43,14 +45,14 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             val movies = movieApiService.getPopularMovies().results
             movieDatabaseDao.resetPopularAttribute()
             movies.forEach { movie ->
-                movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id,null,"1",null))
+                movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id))
+                movieDatabaseDao.setPopular(movie.id, "1")
                 movieDatabaseDao.insertMovie(movie)
             }
             return movies
         } catch (exception: Exception) {
             Timber.tag("MOVIE_REPOSITORY_POPULAR").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
-        println("LOADING LOCAL POPULAR MOVIES")
         return movieDatabaseDao.getPopularMovies()
     }
 
@@ -73,6 +75,7 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
         } catch (exception: Exception) {
             Timber.tag("MOVIE_REPOSITORY_MOVIE_DETAILS").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
+        movieDatabaseDao.insertMovie(movie)
         return movieDatabaseDao.getMovie(movie.id)
     }
 
@@ -85,11 +88,11 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
     }
 
     override suspend fun saveMovie(movie: Movie) {
-        movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id, "1",null,null))
+        movieDatabaseDao.setFavorite(movie.id, "1")
     }
 
     override suspend fun deleteMovie(movie: Movie) {
-        movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id, "0",null,null))
+        movieDatabaseDao.setFavorite(movie.id, "0")
     }
 
     override suspend fun getSavedMovies(): List<Movie> {
