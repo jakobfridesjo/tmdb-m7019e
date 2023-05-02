@@ -40,7 +40,6 @@ class MovieDetailViewModel(
                 _movie.value = movieRepository.getMovieDetails(movieArg)
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e: Exception) {
-                println(e.message)
                 _dataFetchStatus.value = DataFetchStatus.ERROR
             }
         }

@@ -1,9 +1,9 @@
 <resources>
+
     <string name="app_name">TMDB M7019E</string>
     <string name="action_load_popular_movies">Popular Movies</string>
     <string name="action_load_top_rated_movies">Top Rated Movies</string>
     <string name="action_load_saved_movies">Saved Movies</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -25,6 +25,5 @@
     <string name="poster_description">Movie poster</string>
     <string name="save_locally">Save Locally</string>
     <string name="remove_locally">Remove Locally</string>
-    <string name="imdb_base_url">https://www.imdb.com/title/</string>
 
 </resources>

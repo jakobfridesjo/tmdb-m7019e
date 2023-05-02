@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.model.Video
 import com.ltu.m7019e.v23.themoviedb.databinding.VideoListItemBinding
 
-class VideoListAdapter(private val videoClickListener: VideoListClickListener) :  ListAdapter<Video, VideoListAdapter.ViewHolder>(VideoListDiffCallback()){
+class VideoListAdapter :  ListAdapter<Video, VideoListAdapter.ViewHolder>(VideoListDiffCallback()){
     class ViewHolder(private var binding: VideoListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(video: Video) {
@@ -43,7 +43,4 @@ class VideoListDiffCallback : DiffUtil.ItemCallback<Video>() {
         return oldItem == newItem
     }
 
-}
-
-class VideoListClickListener(val clickListener: (video: Video) -> Unit) {
 }

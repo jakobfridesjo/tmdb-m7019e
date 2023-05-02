@@ -7,16 +7,12 @@
         <variable
             name="review"
             type="com.ltu.m7019e.v23.themoviedb.model.Review" />
-        <variable
-            name="clickListener"
-            type="com.ltu.m7019e.v23.themoviedb.adapter.ReviewListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/review_list_item_cl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:onClick="@{ () -> clickListener.onClick(review)}">
+        android:layout_height="match_parent">
 
 
         <TextView

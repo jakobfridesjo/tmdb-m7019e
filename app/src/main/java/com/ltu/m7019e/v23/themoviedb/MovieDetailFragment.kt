@@ -51,10 +51,6 @@ class MovieDetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.movie.observe(viewLifecycleOwner) { _movie ->
-            println("TEST")
-            println(_movie.imdbId)
-            println(_movie.homepage)
-            println("TEST")
             binding.movie = _movie
             movie.imdbId = _movie.imdbId
             movie.homepage = _movie.homepage
@@ -94,12 +90,14 @@ class MovieDetailFragment : Fragment() {
             findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToThirdFragment(movie))
         }
 
+        // Open imdb app/webpage
         binding.movieDetailsImdb.setOnClickListener {
             val uri = Uri.parse("${IMDB_BASE_URL}${movie.imdbId}")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context?.startActivity(intent)
         }
 
+        // Open movie app/webpage
         binding.movieDetailsPage.setOnClickListener {
             val uri = Uri.parse(movie.homepage)
             val intent = Intent(Intent.ACTION_VIEW, uri)

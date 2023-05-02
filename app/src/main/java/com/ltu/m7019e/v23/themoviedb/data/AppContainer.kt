@@ -1,8 +1,6 @@
 package com.ltu.m7019e.v23.themoviedb.data
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApiService
@@ -43,10 +41,16 @@ class DefaultAppContainer(context: Context) : AppContainer {
         .baseUrl(Constants.MOVIE_LIST_BASE_URL)
         .build()
 
+    /**
+     * Setup retrofit service
+     */
     private val retrofitService: TMDBApiService by lazy {
         retrofit.create(TMDBApiService::class.java)
     }
 
+    /**
+     * Setup repository
+     */
     override val movieRepository: MovieRepository by lazy {
         DefaultMovieRepository(
             movieDatabaseDao,

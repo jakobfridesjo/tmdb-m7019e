@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.databinding.ReviewListItemGridBinding
+import com.ltu.m7019e.v23.themoviedb.model.Review
 
-class ReviewListAdapter(private val reviewClickListener: ReviewListClickListener) :  ListAdapter<Review, ReviewListAdapter.ViewHolder>(ReviewListDiffCallback()){
+class ReviewListAdapter :  ListAdapter<Review, ReviewListAdapter.ViewHolder>(ReviewListDiffCallback()){
     class ViewHolder(private var binding: ReviewListItemGridBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(review: Review, reviewClickListener: ReviewListClickListener) {
+        fun bind(review: Review) {
             binding.review = review
-            binding.clickListener = reviewClickListener
             binding.executePendingBindings()
         }
 
@@ -31,7 +30,7 @@ class ReviewListAdapter(private val reviewClickListener: ReviewListClickListener
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), reviewClickListener)
+        holder.bind(getItem(position))
     }
 }
 
@@ -44,8 +43,4 @@ class ReviewListDiffCallback : DiffUtil.ItemCallback<Review>() {
         return oldItem == newItem
     }
 
-}
-
-class ReviewListClickListener(val clickListener: (review: Review) -> Unit) {
-    fun onClick(review: Review) = clickListener(review)
 }

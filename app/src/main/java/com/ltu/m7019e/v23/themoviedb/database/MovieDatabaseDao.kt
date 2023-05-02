@@ -1,11 +1,9 @@
 package com.ltu.m7019e.v23.themoviedb.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.MovieAttributes
 
@@ -35,12 +33,6 @@ interface MovieDatabaseDao {
 
     @Query("SELECT * FROM movies WHERE id = :id")
     suspend fun getMovie(id: Long): Movie
-
-    @Query("SELECT * FROM movies")
-    suspend fun getAllMovies(): List<Movie>
-
-    @Query("SELECT * FROM movie_attributes")
-    suspend fun getAllMovieAttributes(): List<MovieAttributes>
 
     @Query("SELECT EXISTS(SELECT * FROM movies " +
             "INNER JOIN movie_attributes " +

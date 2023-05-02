@@ -6,9 +6,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class VideoResponse {
-    @Json(name = "id")
-    var id: Long = 0L
 
     @Json(name = "results")
     var results: List<Video> = emptyList()
+
 }

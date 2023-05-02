@@ -6,7 +6,6 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.ltu.m7019e.v23.themoviedb.data.MovieRepository
-import com.ltu.m7019e.v23.themoviedb.viewmodel.MovieListViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,10 +22,16 @@ class NetworkCallbackImpl(val movieRepository: MovieRepository, private val cont
         connectivityManager.registerNetworkCallback(networkRequest, this)
     }
 
+    /**
+     * Unregisters the network listener
+     */
     fun unregister() {
         connectivityManager.unregisterNetworkCallback(this)
     }
 
+    /**
+     * Updates repository when network is available
+     */
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
         if (isConnected()) {
@@ -39,6 +44,9 @@ class NetworkCallbackImpl(val movieRepository: MovieRepository, private val cont
         }
     }
 
+    /**
+     * Check if we have an internet connection
+     */
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork

@@ -38,9 +38,8 @@ class MovieDetailsResponse {
 
 @JsonClass(generateAdapter = true)
 class Genre {
-    @Json(name = "id")
-    var id: Long = 0L
 
     @Json(name = "name")
     var name: String = ""
+
 }

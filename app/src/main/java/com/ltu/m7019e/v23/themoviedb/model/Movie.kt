@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
@@ -38,6 +37,10 @@ data class Movie(
     @ColumnInfo
     @Json(name = "genres")
     var genres: String? = "",
+
+    @ColumnInfo
+    @Json(name = "runtime")
+    var runtime: Int = 0,
 
     @ColumnInfo
     @Json(name = "imdb_id")

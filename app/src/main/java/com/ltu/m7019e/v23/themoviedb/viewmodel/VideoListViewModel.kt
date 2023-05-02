@@ -34,17 +34,12 @@ class VideoListViewModel(
         _dataFetchStatus.value = DataFetchStatus.LOADING
     }
 
-    fun onVideoListItemClicked(video: Video) {
-        //_navigateToMovieDetail.value = movie
-    }
-
     private fun getMovieVideos() {
         viewModelScope.launch {
             try {
                 _videoList.value = movieRepository.getMovieVideos(movie)
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e: Exception) {
-                println(e.message)
                 _dataFetchStatus.value = DataFetchStatus.ERROR
             }
         }

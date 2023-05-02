@@ -35,20 +35,12 @@ class ReviewListViewModel(
         _dataFetchStatus.value = DataFetchStatus.LOADING
     }
 
-    fun onReviewListItemClicked(review: Review) {
-        //_navigateToMovieDetail.value = movie
-    }
-
     private fun getMovieReviews() {
         viewModelScope.launch {
             try {
                 _reviewList.value = movieRepository.getMovieReviews(movie)
-                println("TESTING HERE")
-                println(_reviewList.value)
-                println("DONE TESTING")
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e: Exception) {
-                println(e.message)
                 _dataFetchStatus.value = DataFetchStatus.ERROR
             }
         }

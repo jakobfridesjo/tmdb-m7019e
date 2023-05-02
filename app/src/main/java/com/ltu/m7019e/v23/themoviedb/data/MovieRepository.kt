@@ -1,6 +1,5 @@
 package com.ltu.m7019e.v23.themoviedb.data
 
-import android.util.Log
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.MovieAttributes
@@ -23,6 +22,10 @@ interface MovieRepository {
 }
 
 class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, private val movieApiService: TMDBApiService) : MovieRepository {
+
+    /**
+     * Gets the top rated movies, foremost from online, otherwise from the local database
+     */
     override suspend fun getTopRatedMovies(): List<Movie> {
         try {
             val movies = movieApiService.getTopRatedMovies().results
@@ -39,6 +42,9 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
         return movieDatabaseDao.getTopRatedMovies()
     }
 
+    /**
+     * Gets the popular movies, foremost from online, otherwise from the local database
+     */
     override suspend fun getPopularMovies(): List<Movie> {
         try {
             val movies = movieApiService.getPopularMovies().results
@@ -55,10 +61,13 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
         return movieDatabaseDao.getPopularMovies()
     }
 
+    /**
+     * Gets details for a movie, foremost from online, and else wise from the local database
+     */
     override suspend fun getMovieDetails(movie: Movie): Movie {
         try {
             val movieResponse = movieApiService.getMovieDetails(movie.id)
-            val _movie = Movie(
+            val mMovie = Movie(
                 movieResponse.id,
                 movieResponse.title,
                 movieResponse.posterPath,
@@ -66,11 +75,12 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
                 movieResponse.releaseDate,
                 movieResponse.overview,
                 movieResponse.genres.joinToString(", ") { it.name },
+                movieResponse.runtime,
                 movieResponse.imdbId,
                 movieResponse.homepage
             )
-            movieDatabaseDao.insertMovie(_movie)
-            return _movie
+            movieDatabaseDao.insertMovie(mMovie)
+            return mMovie
         } catch (exception: Exception) {
             Timber.tag("MOVIE_REPOSITORY_MOVIE_DETAILS").d("NETWORK UNREACHABLE, USING LOCAL DATA")
         }
@@ -78,26 +88,44 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
         return movieDatabaseDao.getMovie(movie.id)
     }
 
+    /**
+     * Gets reviews for a movie
+     */
     override suspend fun getMovieReviews(movie: Movie): List<Review> {
         return movieApiService.getMovieReviews(movie.id).results
     }
 
+    /**
+     * Gets videos for a movie
+     */
     override suspend fun getMovieVideos(movie: Movie): List<Video> {
         return movieApiService.getMovieVideos(movie.id).results
     }
 
+    /**
+     * Favorites a movie in the local database
+     */
     override suspend fun saveMovie(movie: Movie) {
         movieDatabaseDao.setFavorite(movie.id, "1")
     }
 
+    /**
+     * Unfavorites a movie in the local database
+     */
     override suspend fun deleteMovie(movie: Movie) {
         movieDatabaseDao.setFavorite(movie.id, "0")
     }
 
+    /**
+     * Gets all movies in the local database
+     */
     override suspend fun getSavedMovies(): List<Movie> {
         return movieDatabaseDao.getSavedMovies()
     }
 
+    /**
+     * Checks if a movie is marked as a favorite
+     */
     override suspend fun isFavoriteMovie(movie: Movie): Boolean {
         return movieDatabaseDao.isFavorite(movie.id)
     }

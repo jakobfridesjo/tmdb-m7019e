@@ -72,3 +72,11 @@ fun bindVideoView(webView: WebView, key: String?) {
 
     webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
 }
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("runtimeFormat")
+fun bindRuntime(textView: TextView, runtime: Int) {
+    val hours  = runtime / 60
+    val minutes = runtime % 60
+    textView.text = "${hours}h ${minutes}m"
+}

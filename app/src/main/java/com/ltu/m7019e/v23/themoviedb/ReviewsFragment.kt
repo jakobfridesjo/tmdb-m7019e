@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.ltu.m7019e.v23.themoviedb.adapter.ReviewListAdapter
-import com.ltu.m7019e.v23.themoviedb.adapter.ReviewListClickListener
 import com.ltu.m7019e.v23.themoviedb.adapter.VideoListAdapter
-import com.ltu.m7019e.v23.themoviedb.adapter.VideoListClickListener
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentReviewsBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -48,23 +46,23 @@ class ReviewsFragment : Fragment() {
         val movieRepository = appContainer.movieRepository
         val application = requireNotNull(this.activity).application
 
+        // Setup recycler view for reviews
         reviewListViewModelFactory = ReviewListViewModelFactory(movieRepository, movie, application)
         reviewListViewModel = ViewModelProvider(this, reviewListViewModelFactory)[ReviewListViewModel::class.java]
 
+        // Setup recycler view for videos
         videoListViewModelFactory = VideoListViewModelFactory(movieRepository, movie, application)
         videoListViewModel = ViewModelProvider(this, videoListViewModelFactory)[VideoListViewModel::class.java]
 
-        val reviewListAdapter = ReviewListAdapter(
-            ReviewListClickListener { review ->
-                reviewListViewModel.onReviewListItemClicked(review)
-            })
-
+        // Snap reviews when swiping
         val reviewSnapHelper = PagerSnapHelper()
         reviewSnapHelper.attachToRecyclerView(binding.reviewList)
 
+        // Snap videos when swiping
         val videoSnapHelper = PagerSnapHelper()
         videoSnapHelper.attachToRecyclerView(binding.videoList)
 
+        val reviewListAdapter = ReviewListAdapter()
         binding.reviewList.adapter = reviewListAdapter
         reviewListViewModel.reviewList.observe(viewLifecycleOwner) { reviewList ->
             reviewList?.let {
@@ -72,10 +70,7 @@ class ReviewsFragment : Fragment() {
             }
         }
 
-        val videoListAdapter = VideoListAdapter(
-            VideoListClickListener { video ->
-                videoListViewModel.onVideoListItemClicked(video)
-            })
+        val videoListAdapter = VideoListAdapter()
         binding.videoList.adapter = videoListAdapter
         videoListViewModel.videoList.observe(viewLifecycleOwner) { videoList ->
             videoList?.let {
