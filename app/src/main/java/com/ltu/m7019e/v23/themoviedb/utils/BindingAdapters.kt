@@ -7,6 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ltu.m7019e.v23.themoviedb.R
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.YOUTUBE_BASE_URL
 import java.text.SimpleDateFormat
@@ -16,9 +19,9 @@ import java.util.Locale
 @BindingAdapter("posterImageUrl")
 fun bindPosterImage(imgView: ImageView, imgUrl:String?) {
     imgUrl?.let { posterPath ->
-        Glide
-            .with(imgView)
+        Glide.with(imgView)
             .load(Constants.POSTER_IMAGE_BASE_URL + Constants.POSTER_IMAGE_WIDTH + posterPath)
+            .transform(CenterInside(), RoundedCorners(18))
             .into(imgView)
     }
 }
@@ -33,6 +36,7 @@ fun bindAvatarImage(imgView: ImageView, imgUrl: String?) {
 
     Glide.with(imgView)
         .load(imageUrl)
+        .transform(CenterInside(), RoundedCorners(8))
         .into(imgView)
 }
 

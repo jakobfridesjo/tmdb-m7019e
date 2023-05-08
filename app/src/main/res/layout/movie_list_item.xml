@@ -16,7 +16,7 @@
         android:id="@+id/movie_list_item_cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{ () -> clickListener.onClick(movie)}">
+        android:onClick="@{ () -> clickListener.onClick(movie)}" >
 
         <ImageView
             android:id="@+id/movie_poster"
@@ -26,13 +26,13 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            android:contentDescription="@string/poster_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:posterImageUrl="@{movie.posterPath}"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/poster_description" />
+            tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

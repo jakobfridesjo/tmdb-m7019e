@@ -17,13 +17,13 @@ interface MovieDatabaseDao {
     suspend fun insertMovieAttribute(movieAttributes: MovieAttributes)
 
     @Query("UPDATE movie_attributes SET top_rated = :value WHERE id = :id")
-    suspend fun setTopRated(id: Long, value: String)
+    suspend fun setTopRated(id: Long, value: Boolean)
 
     @Query("UPDATE movie_attributes SET popular = :value WHERE id = :id")
-    suspend fun setPopular(id: Long, value: String)
+    suspend fun setPopular(id: Long, value: Boolean)
 
     @Query("UPDATE movie_attributes SET favorite = :value WHERE id = :id")
-    suspend fun setFavorite(id: Long, value: String)
+    suspend fun setFavorite(id: Long, value: Boolean)
 
     @Query("UPDATE movie_attributes SET top_rated = 0")
     suspend fun resetTopRatedAttribute()
@@ -34,25 +34,23 @@ interface MovieDatabaseDao {
     @Query("SELECT * FROM movies WHERE id = :id")
     suspend fun getMovie(id: Long): Movie
 
-    @Query("SELECT EXISTS(SELECT * FROM movies " +
-            "INNER JOIN movie_attributes " +
-            "ON movies.id = movie_attributes.id " +
-            "WHERE movies.id = :id AND movie_attributes.favorite = 1)")
+    @Query("SELECT EXISTS(SELECT * FROM movie_attributes " +
+            "WHERE id = :id AND favorite = 1)")
     suspend fun isFavorite(id: Long): Boolean
 
-    @Query("SELECT * FROM movies " +
+    @Query("SELECT movies.* FROM movies " +
             "INNER JOIN movie_attributes " +
             "ON movies.id = movie_attributes.id " +
             "WHERE movie_attributes.top_rated = 1")
     suspend fun getTopRatedMovies(): List<Movie>
 
-    @Query("SELECT * FROM movies " +
+    @Query("SELECT movies.* FROM movies " +
             "INNER JOIN movie_attributes " +
             "ON movies.id = movie_attributes.id " +
             "WHERE movie_attributes.popular = 1")
     suspend fun getPopularMovies(): List<Movie>
 
-    @Query("SELECT * FROM movies " +
+    @Query("SELECT movies.* FROM movies " +
             "INNER JOIN movie_attributes " +
             "ON movies.id = movie_attributes.id " +
             "WHERE movie_attributes.favorite = 1")

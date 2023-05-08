@@ -21,7 +21,9 @@ interface MovieRepository {
 
 }
 
-class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, private val movieApiService: TMDBApiService) : MovieRepository {
+class DefaultMovieRepository(
+    private val movieDatabaseDao: MovieDatabaseDao,
+    private val movieApiService: TMDBApiService) : MovieRepository {
 
     /**
      * Gets the top rated movies, foremost from online, otherwise from the local database
@@ -32,7 +34,7 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             movieDatabaseDao.resetTopRatedAttribute()
             movies.forEach { movie ->
                 movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id,null,null,null))
-                movieDatabaseDao.setTopRated(movie.id, "1")
+                movieDatabaseDao.setTopRated(movie.id, true)
                 movieDatabaseDao.insertMovie(movie)
             }
             return movies
@@ -51,7 +53,7 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
             movieDatabaseDao.resetPopularAttribute()
             movies.forEach { movie ->
                 movieDatabaseDao.insertMovieAttribute(MovieAttributes(movie.id))
-                movieDatabaseDao.setPopular(movie.id, "1")
+                movieDatabaseDao.setPopular(movie.id, true)
                 movieDatabaseDao.insertMovie(movie)
             }
             return movies
@@ -106,14 +108,14 @@ class DefaultMovieRepository(private val movieDatabaseDao: MovieDatabaseDao, pri
      * Favorites a movie in the local database
      */
     override suspend fun saveMovie(movie: Movie) {
-        movieDatabaseDao.setFavorite(movie.id, "1")
+        movieDatabaseDao.setFavorite(movie.id, true)
     }
 
     /**
      * Unfavorites a movie in the local database
      */
     override suspend fun deleteMovie(movie: Movie) {
-        movieDatabaseDao.setFavorite(movie.id, "0")
+        movieDatabaseDao.setFavorite(movie.id, false)
     }
 
     /**

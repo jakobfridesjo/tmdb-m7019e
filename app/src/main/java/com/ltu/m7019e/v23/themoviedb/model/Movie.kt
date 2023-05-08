@@ -14,39 +14,39 @@ data class Movie(
     @Json(name = "id")
     var id: Long = 0L,
 
-    @ColumnInfo
+    @ColumnInfo(name = "title")
     @Json(name = "title")
     var title: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "poster_path")
     @Json(name = "poster_path")
     var posterPath: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "backdrop_path")
     @Json(name = "backdrop_path")
     var backdropPath: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "release_date")
     @Json(name = "release_date")
     var releaseDate: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "overview")
     @Json(name = "overview")
     var overview: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "genres")
     @Json(name = "genres")
     var genres: String? = "",
 
-    @ColumnInfo
+    @ColumnInfo(name = "runtime")
     @Json(name = "runtime")
     var runtime: Int = 0,
 
-    @ColumnInfo
+    @ColumnInfo(name = "imdb_id")
     @Json(name = "imdb_id")
     var imdbId: String = "",
 
-    @ColumnInfo
+    @ColumnInfo(name = "homepage")
     @Json(name = "homepage")
     var homepage: String = ""
 ) : Parcelable
