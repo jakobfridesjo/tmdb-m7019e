@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="@{movie.title}"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/remove_from_database"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_backdrop" />
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/movie_page_title"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:visibility="@{(movie.homepage.length > 0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/divider_movie_link"
             app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +139,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="280dp"
+            android:layout_marginBottom="250dp"
             android:background="?android:attr/listDivider"
             android:visibility="@{(movie.homepage.length > 0) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
             android:id="@+id/divider_movie_link_imdb_link"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginBottom="190dp"
+            android:layout_marginBottom="160dp"
             android:background="?android:attr/listDivider"
             android:visibility="@{(movie.imdbId.length > 0) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -165,26 +165,33 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/movie_imdb_title"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:visibility="@{(movie.imdbId.length > 0) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/divider_movie_link_imdb_link"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/divider_movie_link_imdb_link" />
 
-        <TextView
-            android:id="@+id/movie_details_description"
-            android:layout_width="0dp"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:text="@{movie.overview}"
+            android:layout_marginBottom="28dp"
             app:layout_constraintBottom_toTopOf="@+id/movie_page_title"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_details_runtime" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_details_runtime"
+            app:layout_constraintVertical_bias="0.229">
+
+            <TextView
+                android:id="@+id/movie_details_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{movie.overview}" />
+        </ScrollView>
 
         <ImageView
             android:id="@+id/save_to_database"
@@ -217,15 +224,15 @@
 
         <TextView
             android:id="@+id/movie_details_runtime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:runtimeFormat="@{movie.runtime}"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/movie_details_genre"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_details_genre" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_details_genre"
+            app:runtimeFormat="@{movie.runtime}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
