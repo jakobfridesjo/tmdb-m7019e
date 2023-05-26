@@ -5,7 +5,7 @@ The app utilizes the [TMDB API](https://developer.themoviedb.org/docs) to fetch 
 
 ##  User guide
 
-Create a `SECRETS.kt` file and populate <TMDB API Key (v3 auth) with your personal TMDB API key:
+Create a `SECRETS.kt` file and populate <TMDB API Key (v3 auth)> with your personal TMDB API key:
 
 ---
 
